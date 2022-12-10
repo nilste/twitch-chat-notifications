@@ -1,0 +1,34 @@
+{
+	"manifest_version": 3,
+	"name": "Twitch Chat Notifications",
+	"description": "Get notified when phrases are mentioned.",
+	"version": "1.0",
+	"icons": {
+		"256": "images/icon.png"
+	},
+
+	"permissions": [
+		"activeTab",
+		"notifications",
+		"storage"
+	],
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": false
+	},
+	"background": {
+		"service_worker": "js/background.js"
+ 	},
+	"content_scripts": [{
+		"matches": [
+			"*://twitch.tv/*",
+			"*://www.twitch.tv/*"
+		],
+		"js": [
+			"js/content.js"
+		],
+		"run_at": "document_end",
+		"all_frames": true,
+		"permissions": ["storage"]
+	}]
+}
