@@ -6,15 +6,17 @@ new MutationObserver(mutations => {
 			if (addedNode.nodeName !== "DIV") { continue; }
 			if (!addedNode.classList.contains("chat-line__message")) { continue; }
 
-			const message = addedNode.querySelector(".message");
-			if (!message) { continue; }
+			const messageNode = addedNode.querySelector(".message");
+			if (!messageNode) { continue; }
 
 			chrome.storage.sync.get(["phrases"], result => {
 				if (!Array.isArray(result.phrases)) { return; }
 
+				const message = messageNode.innerText;
+
 				for (const phrase of result.phrases) {
-					if (message.innerText.includes(phrase)) {
-						chrome.runtime.sendMessage("Found: " + phrase);
+					if (message.toLowerCase().includes(phrase.toLowerCase())) {
+						chrome.runtime.sendMessage(message);
 						break;
 					}
 				}
