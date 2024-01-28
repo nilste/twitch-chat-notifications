@@ -17,6 +17,7 @@ new MutationObserver(mutations => {
 				for (const phrase of result.phrases) {
 					if (message.toLowerCase().includes(phrase.toLowerCase())) {
 						chrome.runtime.sendMessage(message);
+						messageNode.classList.add("reply-line--mentioned");
 						break;
 					}
 				}
