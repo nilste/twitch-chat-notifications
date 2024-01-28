@@ -1,6 +1,6 @@
 
 chrome.runtime.onInstalled.addListener(function() {
-	// 
+	// Set default phrases if none exist
 	chrome.storage.sync.get("phrases", function(result) {
 		if (!result.phrases) {
 			chrome.storage.sync.set({
